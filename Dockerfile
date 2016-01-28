@@ -19,8 +19,13 @@ RUN apt-get update && apt-get install -y \
   libgdbm3 \
   libgdbm-dev \
   libmysqlclient-dev \
+  ntp \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+
+# setup time servers
+RUN echo 'Asia/Singapore' > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
 
 # install ruby
 RUN mkdir -p tmp && cd /tmp && \
